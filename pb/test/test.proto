@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package kingBird;
+package test;
 
 // The greeting service definition.
 service Greeter {

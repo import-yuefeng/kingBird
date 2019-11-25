@@ -14,6 +14,9 @@ import (
 	"os"
 	"runtime"
 
+	kingctl "github.com/import-yuefeng/kingBird/kingctl"
+	kinglet "github.com/import-yuefeng/kingBird/kinglet"
+
 	log "github.com/sirupsen/logrus"
 )
 
@@ -26,14 +29,14 @@ var (
 	isLogVerbose    = flag.Bool("v", false, "verbose mode")
 	processorNumber = flag.Int("p", runtime.NumCPU(), "number of processor to use")
 
-	isKinglet = flag.String("kinglet", "", "start kingBird which kinglet mode")
-	isKingctl = flag.String("kingctl", "", "start kingBird which kingctl mode")
+	isKinglet = flag.Bool("kinglet", false, "start kingBird which kinglet mode")
+	isKingctl = flag.Bool("kingctl", false, "start kingBird which kingctl mode")
 )
 
 func main() {
+
 	flag.Parse()
 	// parse command-line flag
-
 	log.SetFormatter(&log.TextFormatter{
 		FullTimestamp:   true,
 		TimestampFormat: "2006-01-02 15:04:05",
@@ -45,6 +48,11 @@ func main() {
 		// except for program has Warn
 		log.SetLevel(log.FatalLevel)
 	}
+
+	// if flag.NArg() < 1 {
+	// 	log.Errorf("not argument given")
+	// 	return
+	// }
 
 	if *logPath != "" {
 		lf, err := os.OpenFile(*logPath, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0640)
@@ -61,9 +69,9 @@ func main() {
 	runtime.GOMAXPROCS(*processorNumber)
 
 	if *isKingctl && *isKinglet == false {
-		kingctl.kingctl(*configPath)
+		kingctl.Kingctl(*configPath)
 	} else if *isKinglet && *isKingctl == false {
-		kinglet.kinglet(*configPath)
+		kinglet.Kinglet(*configPath)
 	} else {
 		log.Errorf("controlError")
 		return
