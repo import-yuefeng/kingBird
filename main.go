@@ -23,7 +23,7 @@ import (
 var (
 	version = "0.0.1"
 
-	configPath = flag.String("c", "./config.json", "config file path")
+	configPath = flag.String("c", "./example.yml", "config file path")
 	logPath    = flag.String("l", "", "log file path")
 
 	isLogVerbose    = flag.Bool("v", false, "verbose mode")
@@ -49,7 +49,7 @@ func main() {
 		log.SetLevel(log.FatalLevel)
 	}
 
-	// if flag.NArg() < 1 {
+	// if len(flag.Args()) < 1 {
 	// 	log.Errorf("not argument given")
 	// 	return
 	// }

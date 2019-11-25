@@ -1,0 +1,32 @@
+config:
+  server:
+    host: "localhost"
+    port: 2048
+  
+  cmd:
+    startCmd: "start.sh"
+    stopCmd: "stop.sh"
+    savePath: "/root/mywork/"
+    workPath: "/root/mywork/"
+  
+  cloudInfo:
+    placementInfo:
+      Zone: "ap-shanghai-2"
+      ProjectID: "123456"
+    dataDisk: "none"
+    imageID: "img-pi0ii46r"
+    imageName: "Ubuntu Server 18.04.1 LTS 64bit"
+    systemDisk:
+      diskType: "CLOUD_PREMIUM"
+      diskSize: "50"
+    enhancedService: "none"
+    hostName: "firstSpotHost"
+    userData: "none"
+    virtualPrivateCloud: "none"
+    internetAccessible: "none"
+    instanceCount: 1
+    instanceName: "firstSpotHost"
+    securityGroupID: "none"
+
+ 
+

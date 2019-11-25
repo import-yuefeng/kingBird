@@ -1,40 +1,40 @@
 package kingctl
 
 import (
-	"context"
-	"net"
-
-	pb "github.com/import-yuefeng/kingBird/pd/test/"
+	config "github.com/import-yuefeng/kingBird/config"
+	pb "github.com/import-yuefeng/kingBird/pb/test"
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
-func init() {
-}
-
 const (
-	PORT = ":2048"
+	address = ":2048"
 )
 
-type server struct{}
-
-func Kingctl(configPath string) {
-	log.Info("hello, now is kingctl mode")
-
-	lis, err := net.Listen("tcp", PORT)
-
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-
-	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
-	log.Info("Start gRPC service...")
-	s.Serve(lis)
+func init() {
 
 }
 
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	log.Infoln("request: ", in.Name)
-	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+func Kingctl(configPath string) {
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+
+	defer conn.Close()
+	config.ReadConfigFile(configPath)
+
+	c := pb.NewGreeterClient(conn)
+
+	name := "kingBird"
+
+	r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: name})
+
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+
+	log.Println(r.Message)
 }
