@@ -10,7 +10,6 @@ require (
 	github.com/mattn/go-isatty v0.0.0-20191112051248-2a2f0ea997f9
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
 	github.com/modern-go/reflect2 v1.0.1
-	github.com/shawn1m/overture v0.0.0-20191110122731-d562aae15fde
 	github.com/sirupsen/logrus v1.4.1
 	github.com/ugorji/go v1.1.7
 	gopkg.in/go-playground/validator.v8 v8.18.2
