@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package task;
+
+//Tasker
+service Tasker {
+  // RunNewTask
+  rpc RunNewTask(RunTaskRequest) returns (TaskReply) {}
+  rpc StopTask(StopTaskRequest) returns (TaskReply) {}
+  rpc ConitnueTask(ContinueTaskRequest) returns (TaskReply) {}
+  rpc CheckTask(CheckTaskRequest) returns (TaskReply) {}
+  rpc SaveTask(SaveTaskRequest) returns (TaskReply) {}
+}
+
+message TaskReply {
+  bool isSuccess = 1;
+  string optionMessage = 2;
+}
+
+// RunTaskRequest
+message RunTaskRequest {
+  string cmd = 1;
+  string mode = 2;
+  string config = 3;
+}
+
+message StopTaskRequest {
+  string cmd = 1;
+}
+
+message ContinueTaskRequest {
+  string cmd = 1;
+}
+
+message CheckTaskRequest {
+  string cmd = 1;
+}
+
+message SaveTaskRequest {
+  string cmd = 1;
+  string path = 2;
+  bool sqlMode = 3;
+  bool s3Mode = 4;
+  bool fsMode = 5;
+}

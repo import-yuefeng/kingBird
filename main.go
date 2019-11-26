@@ -70,10 +70,9 @@ func main() {
 
 	if *isKingctl && *isKinglet == false {
 		kingctl.Kingctl(*configPath)
-	} else if *isKinglet && *isKingctl == false {
-		kinglet.Kinglet(*configPath)
 	} else {
-		log.Errorf("controlError")
-		return
+		// default run with kinglet mode.
+		kinglet.Kinglet(*configPath)
 	}
+	return
 }

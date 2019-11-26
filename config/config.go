@@ -2,7 +2,6 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 
@@ -61,18 +60,21 @@ type SystemDisk struct {
 	DiskSize string `yaml:"diskSize"`
 }
 
-func ReadConfigFile(path string) {
+func ReadConfigFile(path string) ([]byte, error) {
 	conf, err := readConfigFile(path)
 	if err != nil {
 		log.Fatal(err)
+		return []byte{}, err
 	}
 
 	byts, err := json.MarshalIndent(conf, "", "\t")
 	if err != nil {
 		log.Fatal(err)
+		return []byte{}, err
 	}
 
-	fmt.Println(string(byts))
+	// fmt.Println(string(byts))
+	return byts, nil
 }
 
 func readConfigFile(path string) (*Config, error) {

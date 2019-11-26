@@ -4,7 +4,8 @@ import (
 	"context"
 	"net"
 
-	pb "github.com/import-yuefeng/kingBird/pb/test"
+	task "github.com/import-yuefeng/kingBird/pb/task"
+	test "github.com/import-yuefeng/kingBird/pb/test"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )
@@ -28,13 +29,37 @@ func Kinglet(configPath string) {
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
+	test.RegisterGreeterServer(s, &server{})
+	task.RegisterTaskerServer(s, &server{})
 	log.Info("start gRPC service...")
 	s.Serve(lis)
 
 }
 
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+func (s *server) SayHello(ctx context.Context, in *test.HelloRequest) (*test.HelloReply, error) {
 	log.Infoln("request: ", in.Name)
-	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+	return &test.HelloReply{Message: "Hello " + in.Name}, nil
+}
+
+func (s *server) RunNewTask(ctx context.Context, in *task.RunTaskRequest) (*task.TaskReply, error) {
+	log.Infoln("request: ", in)
+	return &task.TaskReply{IsSuccess: true}, nil
+}
+
+func (s *server) StopTask(ctx context.Context, in *task.StopTaskRequest) (*task.TaskReply, error) {
+	log.Infoln("request: ", in)
+	return &task.TaskReply{IsSuccess: true}, nil
+}
+
+func (s *server) ConitnueTask(ctx context.Context, in *task.ContinueTaskRequest) (*task.TaskReply, error) {
+	log.Infoln("request: ", in)
+	return &task.TaskReply{IsSuccess: true}, nil
+}
+func (s *server) CheckTask(ctx context.Context, in *task.CheckTaskRequest) (*task.TaskReply, error) {
+	log.Infoln("request: ", in)
+	return &task.TaskReply{IsSuccess: true}, nil
+}
+func (s *server) SaveTask(ctx context.Context, in *task.SaveTaskRequest) (*task.TaskReply, error) {
+	log.Infoln("request: ", in)
+	return &task.TaskReply{IsSuccess: true}, nil
 }

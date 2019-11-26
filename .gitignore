@@ -11,6 +11,12 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-$ macOS file
+# macOS file
 
 .DS_Store
+
+# air file
+tmp/
+.air
+air.conf
+
